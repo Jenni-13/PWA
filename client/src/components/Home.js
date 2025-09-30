@@ -7,7 +7,7 @@ export default function Home() {
 
     // Cargar datos de gatitos
     const API_URL = process.env.NODE_ENV === "production"
-        ? "https://mi-backend.onrender.com/api/items"
+        ? "https://pwa-km5q.onrender.com/api/items"
         : "http://localhost:4000/api/items";
 
     useEffect(() => {
