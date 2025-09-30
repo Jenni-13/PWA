@@ -14,16 +14,16 @@ export default function Home() {
         fetch(API_URL)
             .then(res => res.json())
             .then(data => {
-                setItems(data);
-                localStorage.setItem("items", JSON.stringify(data));
+                setCats(data);  // ← aquí estaba setItems
+                localStorage.setItem("cats", JSON.stringify(data)); // opcional: cambiar key
             })
             .catch(err => {
                 console.error("Error al cargar datos remotos:", err);
 
                 // Si falla, cargar datos locales
-                const localData = localStorage.getItem("items");
+                const localData = localStorage.getItem("cats"); // ← aquí también
                 if (localData) {
-                    setItems(JSON.parse(localData));
+                    setCats(JSON.parse(localData)); // ← reemplazar
                 }
             });
     }, []);
