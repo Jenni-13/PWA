@@ -1,12 +1,18 @@
 const CACHE_NAME = "mi-pwa-cache-v1";
+
+// Aquí agregamos los archivos esenciales de tu build
 const urlsToCache = [
-    "/",               // Página principal
-    "/index.html",     // HTML
-    "/offline.html",   // Página offline que crearemos
+    "/",               
+    "/index.html",   
+    "/offline.html",   
     "/favicon.ico",
     "/logo192.png",
     "/logo512.png",
-    "/manifest.json"
+    "/manifest.json",
+    "/static/js/main.8a8f095e.js",
+    "/static/js/runtime-main.3b9a1f7d.js",
+    "/static/js/2.d3d8e9f1.chunk.js"   
+
 ];
 
 // Instalar SW y cachear recursos
@@ -33,13 +39,12 @@ self.addEventListener("fetch", e => {
         caches.match(e.request).then(cachedResponse => {
             if (cachedResponse) return cachedResponse;
 
-            // Intentar fetch normal si hay internet
             return fetch(e.request).catch(() => {
                 // Fallback offline solo para páginas HTML
                 if (e.request.destination === "document") {
                     return caches.match("/offline.html");
                 }
-                // Para JS, CSS, imágenes dinámicas de React no cacheadas → no hacer nada
+                // Para JS, CSS, imágenes dinámicas → no hacemos nada
                 return undefined;
             });
         })
