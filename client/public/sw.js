@@ -33,13 +33,11 @@ self.addEventListener("activate", e => {
 self.addEventListener("fetch", e => {
     e.respondWith(
         caches.match(e.request).then(cachedResponse => {
-            if (cachedResponse) {
-                return cachedResponse; // Usa lo que ya está en cache
-            }
+            if (cachedResponse) return cachedResponse;
 
             return fetch(e.request)
                 .then(networkResponse => {
-                    // Guardar en cache dinámico lo que se vaya pidiendo
+                    // Guardar en cache dinámico
                     return caches.open(CACHE_NAME).then(cache => {
                         cache.put(e.request, networkResponse.clone());
                         return networkResponse;
