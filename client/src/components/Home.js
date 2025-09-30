@@ -6,13 +6,25 @@ export default function Home() {
     const [notificationSent, setNotificationSent] = useState(false);
 
     // Cargar datos de gatitos
+    const API_URL = process.env.NODE_ENV === "production"
+        ? "https://mi-backend.onrender.com/api/items"
+        : "http://localhost:4000/api/items";
+
     useEffect(() => {
-        fetch("http://localhost:4000/api/items")
+        fetch(API_URL)
             .then(res => res.json())
-            .then(data => setCats(data))
+            .then(data => {
+                setItems(data);
+                localStorage.setItem("items", JSON.stringify(data));
+            })
             .catch(err => {
+                console.error("Error al cargar datos remotos:", err);
+
+                // Si falla, cargar datos locales
                 const localData = localStorage.getItem("items");
-                if (localData) setCats(JSON.parse(localData));
+                if (localData) {
+                    setItems(JSON.parse(localData));
+                }
             });
     }, []);
 
