@@ -46,7 +46,7 @@ self.addEventListener("fetch", e => {
                 .catch(() => {
                     // Fallback si no hay red y es un HTML
                     if (e.request.destination === "document") {
-                        return caches.match("/offline.html");
+                        return caches.match("/index.html");
                     }
                 });
         })
