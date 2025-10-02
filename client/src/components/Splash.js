@@ -10,7 +10,7 @@ export default function Splash() {
 
     return (
         <div style={{ textAlign: "center", marginTop: "20vh" }}>
-            <h1>🐾 Encuentra tu compañero felino ideal </h1>
+            <h1> Encuentra tu Snacks </h1>
             <p>Cargando...</p>
         </div>
     );
